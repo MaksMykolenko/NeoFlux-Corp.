@@ -4,6 +4,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #000;
   color: #fff;
+  scroll-behavior: smooth;
 }
 
 #drawCanvas {
@@ -36,8 +37,78 @@ body {
   background-color: #5c00cc;
 }
 
+/* Смужка-підказка внизу */
+.bottom-navbar-hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 5px;
+  background: #7300ff;
+  border-radius: 999px;
+  z-index: 15;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
 
-/* Hero Section */
+/* Ховаємо смужку, коли на неї або на navbar наводять */
+.bottom-navbar-hint:hover,
+.bottom-navbar:hover ~ .bottom-navbar-hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Прозорий navbar */
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+  background: transparent; /* Прозорий фон */
+  backdrop-filter: blur(8px); /* Трохи розмиття, щоб виглядало красиво */
+}
+
+/* Показати navbar при наведенні на смужку або сам navbar */
+.bottom-navbar-hint:hover + .bottom-navbar,
+.bottom-navbar:hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Стилізація пунктів navbar */
+.bottom-navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.bottom-navbar li a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 1.4rem;
+  transition: color 0.3s;
+}
+
+.bottom-navbar li a:hover {
+  color: #7300ff;
+}
+
+
+section {
+  height: 100vh;
+}
+
+/* Hero Section with Parallax */
 .hero {
   height: 100vh;
   display: flex;
@@ -61,10 +132,12 @@ body {
   max-width: 600px;
 }
 
+
 /* About Section */
 .about {
   padding: 80px 20px;
   text-align: center;
+  background-color: #000;
 }
 
 .section-title {
@@ -111,34 +184,31 @@ body {
   box-shadow: 0 0 10px #7300ff;
 }
 
-
 .subsidiary-title {
   font-size: 1.5rem;
   color: #7300ff;
   margin-bottom: 10px;
 }
 
-
-
-/* Футер */
+/* Footer */
 footer {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    align-items: center;
-    color: #888;
-    padding: 15px;
-    text-align: center;
-    font-size: 1.2em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.2em;
 }
 
 footer a {
-    text-decoration: none; /* Прибирає підкреслення */
-    color: inherit; /* Залишає стандартний колір */
-    transition: color 0.3s ease; /* Додає плавний ефект при наведенні */
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
 }
 
-footer:hover{
-    color:#9000ff; 
+footer:hover {
+  color: #9000ff;
 }
