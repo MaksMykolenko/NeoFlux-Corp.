@@ -212,3 +212,105 @@ footer a {
 footer:hover {
   color: #9000ff;
 }
+
+
+/* Мобільна адаптація */
+@media (max-width: 768px) {
+  /* Hero section */
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+
+  /* Заголовки секцій */
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-text {
+    font-size: 1.1rem;
+    padding: 0 10px;
+  }
+
+  /* Subsidiaries */
+  .subsidiary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .subsidiary-card {
+    padding: 15px;
+  }
+
+  /* Navbar */
+  .bottom-navbar ul {
+    gap: 20px;
+  }
+
+  .bottom-navbar li a {
+    font-size: 1.1rem;
+  }
+
+  /* Кнопка toggleDraw */
+  #toggleDraw {
+    top: auto;
+    bottom: 80px;
+    right: 20px;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Hero */
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* Заголовки */
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-text {
+    font-size: 1rem;
+  }
+
+  /* Сітка повністю в стовпчик */
+  .subsidiary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navbar — збільшуємо клікабельність */
+  .bottom-navbar ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bottom-navbar li a {
+    font-size: 1.2rem;
+  }
+
+  /* Кнопка toggleDraw */
+  #toggleDraw {
+    bottom: 70px;
+    right: 15px;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  /* Смужка-підказка */
+  .bottom-navbar-hint {
+    bottom: 15px;
+    width: 50px;
+    height: 4px;
+  }
+}
