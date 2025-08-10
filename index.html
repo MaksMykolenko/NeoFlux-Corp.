@@ -132,5 +132,39 @@ canvas.addEventListener("touchmove", (e) => {
 canvas.addEventListener("touchend", stopDrawing);
 </script>
 
+<script>
+  const navbar = document.querySelector(".bottom-navbar");
+const hint = document.querySelector(".bottom-navbar-hint");
+const footer = document.querySelector("footer");
+
+window.addEventListener("scroll", () => {
+  const footerTop = footer.getBoundingClientRect().top;
+  const windowHeight = window.innerHeight;
+
+  if (footerTop <= windowHeight) {
+    // Якщо футер видно на екрані
+    hint.style.opacity = "0";
+    hint.style.pointerEvents = "none";
+
+    navbar.style.position = "fixed";
+    navbar.style.bottom = "auto";
+    navbar.style.top = "0";
+    navbar.style.opacity = "1";
+    navbar.style.pointerEvents = "auto";
+  } else {
+    // Якщо футер не видно
+    hint.style.opacity = "";
+    hint.style.pointerEvents = "";
+
+    navbar.style.position = "fixed";
+    navbar.style.top = "auto";
+    navbar.style.bottom = "0";
+    navbar.style.opacity = "";
+    navbar.style.pointerEvents = "";
+  }
+});
+
+</script>
+
 </body>
 </html>
