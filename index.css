@@ -1,10 +1,24 @@
+
 /* Global */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 200px; /* відступ зверху для фіксованого navbar */
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
   background-color: #000;
   color: #fff;
-  scroll-behavior: smooth;
+}
+
+/* ШРИФТИ*/
+body {
+    font-family: "Exo 2", sans-serif;
+}
+
+.h2,
+.h1 {
+    font-family: 'Orbitron', sans-serif;
 }
 
 /* Прозорий Canvas під усім */
@@ -72,7 +86,7 @@ body {
   pointer-events: none;
 }
 
-/* Прозорий navbar */
+/* Прозорий navbar з початковим зсувом вниз */
 .bottom-navbar {
   position: fixed;
   bottom: 0;
@@ -82,17 +96,19 @@ body {
   display: flex;
   justify-content: center;
   opacity: 0;
+  transform: translateY(20px); /* Зсув вниз */
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 20;
   background: transparent; /* Прозорий фон */
-  backdrop-filter: blur(8px); /* Трохи розмиття, щоб виглядало красиво */
+  backdrop-filter: blur(8px); /* Легке розмиття */
 }
 
-/* Показати navbar при наведенні на смужку або сам navbar */
+/* Показати navbar при наведенні — плавно виїжджає знизу */
 .bottom-navbar-hint:hover + .bottom-navbar,
 .bottom-navbar:hover {
   opacity: 1;
+  transform: translateY(0); /* Повертаємо на місце */
   pointer-events: auto;
 }
 
@@ -115,6 +131,29 @@ body {
 .bottom-navbar li a:hover {
   color: #7300ff;
 }
+
+/* Плавний перехід для navbar і смужки */
+.bottom-navbar,
+.bottom-navbar-hint {
+  transition: all 0.3s ease;
+}
+
+/* Коли футер на екрані — navbar зверху */
+.navbar-top {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: auto !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important; /* Без зсуву */
+}
+
+/* Прихована смужка */
+.hint-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 
 
 section {

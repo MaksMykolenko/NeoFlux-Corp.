@@ -14,9 +14,9 @@
     <div class="bottom-navbar-hint"></div>
     <nav class="bottom-navbar">
       <ul>
-        <li><a href="#hero">Головна</a></li>
-        <li><a href="#about">Про нас</a></li>
-        <li><a href="#subsidiaries">Підрозділи</a></li>
+        <li><a href="#hero">General</a></li>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#subsidiaries">Subdivisions</a></li>
       </ul>
     </nav>
 
@@ -134,36 +134,23 @@ canvas.addEventListener("touchend", stopDrawing);
 
 <script>
   const navbar = document.querySelector(".bottom-navbar");
-const hint = document.querySelector(".bottom-navbar-hint");
-const footer = document.querySelector("footer");
+  const hint = document.querySelector(".bottom-navbar-hint");
+  const footer = document.querySelector("footer");
 
-window.addEventListener("scroll", () => {
-  const footerTop = footer.getBoundingClientRect().top;
-  const windowHeight = window.innerHeight;
+  window.addEventListener("scroll", () => {
+    const footerTop = footer.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
 
-  if (footerTop <= windowHeight) {
-    // Якщо футер видно на екрані
-    hint.style.opacity = "0";
-    hint.style.pointerEvents = "none";
-
-    navbar.style.position = "fixed";
-    navbar.style.bottom = "auto";
-    navbar.style.top = "0";
-    navbar.style.opacity = "1";
-    navbar.style.pointerEvents = "auto";
-  } else {
-    // Якщо футер не видно
-    hint.style.opacity = "";
-    hint.style.pointerEvents = "";
-
-    navbar.style.position = "fixed";
-    navbar.style.top = "auto";
-    navbar.style.bottom = "0";
-    navbar.style.opacity = "";
-    navbar.style.pointerEvents = "";
-  }
-});
-
+    if (footerTop <= windowHeight) {
+      // Футер видно
+      hint.classList.add("hint-hidden");
+      navbar.classList.add("navbar-top");
+    } else {
+      // Футер не видно
+      hint.classList.remove("hint-hidden");
+      navbar.classList.remove("navbar-top");
+    }
+  });
 </script>
 
 </body>
