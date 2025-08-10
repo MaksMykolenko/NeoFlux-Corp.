@@ -7,20 +7,32 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Прозорий Canvas під усім */
 #drawCanvas {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none;
+  z-index: -1; /* завжди під контентом */
+  pointer-events: none; /* вмикається тільки при малюванні */
+  background-color: transparent;
 }
 
+/* Кнопка і навбар завжди поверх */
+#toggleDraw,
+.bottom-navbar,
+.bottom-navbar-hint {
+  position: relative;
+  z-index: 10;
+}
+
+/* Кнопка малювання */
 #toggleDraw {
   position: fixed;
-  top: 950px;
-  right: 30px;
+  top: auto;
+  bottom: 80px;
+  right: 20px;
   z-index: 10;
   background-color: #7300ff;
   color: white;
@@ -36,6 +48,7 @@ body {
 #toggleDraw:hover {
   background-color: #5c00cc;
 }
+
 
 /* Смужка-підказка внизу */
 .bottom-navbar-hint {
@@ -214,36 +227,40 @@ footer:hover {
 }
 
 
-/* Мобільна адаптація */
+/* Планшети та великі телефони */
 @media (max-width: 768px) {
-  /* Hero section */
+  /* Hero */
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    line-height: 1.2;
   }
 
   .hero-subtitle {
     font-size: 1rem;
-    max-width: 90%;
+    max-width: 95%;
+    line-height: 1.4;
   }
 
   /* Заголовки секцій */
   .section-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .section-text {
-    font-size: 1.1rem;
-    padding: 0 10px;
+    font-size: 1rem;
+    padding: 0 12px;
+    line-height: 1.5;
   }
 
   /* Subsidiaries */
   .subsidiary-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 15px;
   }
 
   .subsidiary-card {
     padding: 15px;
+    font-size: 0.95rem;
   }
 
   /* Navbar */
@@ -252,64 +269,76 @@ footer:hover {
   }
 
   .bottom-navbar li a {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    padding: 6px 10px;
   }
 
   /* Кнопка toggleDraw */
   #toggleDraw {
     top: auto;
     bottom: 80px;
-    right: 20px;
-    padding: 8px 14px;
+    right: 16px;
+    padding: 10px 16px;
     font-size: 14px;
   }
 }
 
+/* Дуже малі екрани (телефони) */
 @media (max-width: 480px) {
   /* Hero */
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    line-height: 1.2;
   }
 
   .hero-subtitle {
     font-size: 0.9rem;
+    line-height: 1.4;
   }
 
   /* Заголовки */
   .section-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .section-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    padding: 0 8px;
   }
 
-  /* Сітка повністю в стовпчик */
+  /* Сітка в одну колонку */
   .subsidiary-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  /* Navbar — збільшуємо клікабельність */
+  .subsidiary-card {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  /* Navbar вертикально */
   .bottom-navbar ul {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .bottom-navbar li a {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    padding: 6px;
   }
 
   /* Кнопка toggleDraw */
   #toggleDraw {
-    bottom: 70px;
-    right: 15px;
+    bottom: 65px;
+    right: 12px;
     font-size: 13px;
     padding: 8px 12px;
   }
 
   /* Смужка-підказка */
   .bottom-navbar-hint {
-    bottom: 15px;
+    bottom: 12px;
     width: 50px;
     height: 4px;
   }

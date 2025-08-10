@@ -11,131 +11,126 @@
 
     <button id="toggleDraw">🎨 Enable Draw</button>
 
-<div class="bottom-navbar-hint"></div>
-<nav class="bottom-navbar">
-  <ul>
-    <li><a href="#hero">Головна</a></li>
-    <li><a href="#about">Про нас</a></li>
-    <li><a href="#subsidiaries">Підрозділи</a></li>
-  </ul>
-</nav>
+    <div class="bottom-navbar-hint"></div>
+    <nav class="bottom-navbar">
+      <ul>
+        <li><a href="#hero">Головна</a></li>
+        <li><a href="#about">Про нас</a></li>
+        <li><a href="#subsidiaries">Підрозділи</a></li>
+      </ul>
+    </nav>
 
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1 class="hero-title">NeoFlux Corporation</h1>
-    <p class="hero-subtitle">
-      Pioneering the future of technology, entertainment, and software innovation.
-    </p>
-  </section>
-
-  <!-- About Section -->
-  <section class="about">
-    <h2 class="section-title">Who We Are</h2>
-    <p class="section-text">
-      NeoFlux Corporation is a visionary technology group composed of several
-      innovative subsidiaries. We create solutions that empower the digital world —
-      from interactive entertainment to enterprise software.
-    </p>
-  </section>
-
-  <!-- Subsidiaries -->
-<section class="subsidiaries">
-  <h2 class="section-title">Our Divisions</h2>
-  <div class="subsidiary-grid">
-
-    <a href="https://maksmykolenko.github.io/NeoFlux/" class="subsidiary-card" target="_blank">
-      <h3 class="subsidiary-title">NeoFlux Games</h3>
-      <p class="subsidiary-text">
-        Developing immersive games that redefine entertainment.
+    <section class="hero" id="hero">
+      <h1 class="hero-title">NeoFlux Corporation</h1>
+      <p class="hero-subtitle">
+        Pioneering the future of technology, entertainment, and software innovation.
       </p>
-    </a>
+    </section>
 
-    <a href="https://neoflux.software" class="subsidiary-card" target="_blank">
-      <h3 class="subsidiary-title">NeoFlux Software</h3>
-      <p class="subsidiary-text">
-        Creating powerful, intuitive software for modern businesses.
+    <section class="about" id="about">
+      <h2 class="section-title">Who We Are</h2>
+      <p class="section-text">
+        NeoFlux Corporation is a visionary technology group composed of several
+        innovative subsidiaries. We create solutions that empower the digital world —
+        from interactive entertainment to enterprise software.
       </p>
-    </a>
+    </section>
 
-  </div>
-</section>
+    <section class="subsidiaries" id="subsidiaries">
+      <h2 class="section-title">Our Divisions</h2>
+      <div class="subsidiary-grid">
+        <a href="https://maksmykolenko.github.io/NeoFlux/" class="subsidiary-card" target="_blank">
+          <h3 class="subsidiary-title">NeoFlux Games</h3>
+          <p class="subsidiary-text">
+            Developing immersive games that redefine entertainment.
+          </p>
+        </a>
+        <a href="https://neoflux.software" class="subsidiary-card" target="_blank">
+          <h3 class="subsidiary-title">NeoFlux Software</h3>
+          <p class="subsidiary-text">
+            Creating powerful, intuitive software for modern businesses.
+          </p>
+        </a>
+      </div>
+    </section>
 
-
-  <!-- Footer -->
     <footer>
-        <a href="">©Copyright 2025 by NeoFlux Corp. All rights reserved.</a>
+      <a href="">©Copyright 2025 by NeoFlux Corp. All rights reserved.</a>
     </footer>
 
 <script>
-  const canvas = document.getElementById("drawCanvas");
-  const ctx = canvas.getContext("2d");
-  const toggleBtn = document.getElementById("toggleDraw");
+const canvas = document.getElementById("drawCanvas");
+const ctx = canvas.getContext("2d");
+const toggleBtn = document.getElementById("toggleDraw");
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+let isDrawing = false;
+let drawingEnabled = false;
+let lastX = 0;
+let lastY = 0;
 
+function setDrawingStyle() {
   ctx.lineWidth = 2;
   ctx.strokeStyle = "#7300ff";
   ctx.lineCap = "round";
+}
 
-  let isDrawing = false;
-  let drawingEnabled = false;
-  let lastX = 0;
-  let lastY = 0;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+setDrawingStyle();
 
-  toggleBtn.addEventListener("click", () => {
-    drawingEnabled = !drawingEnabled;
-    canvas.style.pointerEvents = drawingEnabled ? "auto" : "none";
-    toggleBtn.textContent = drawingEnabled ? "❌ Disable Draw" : "🎨 Enable Draw";
-  });
+function resizeCanvas() {
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.putImageData(imgData, 0, 0);
+  setDrawingStyle();
+}
+window.addEventListener('resize', resizeCanvas);
 
-  function startDrawing(e) {
-    if (!drawingEnabled) return;
-    isDrawing = true;
-    [lastX, lastY] = [e.clientX, e.clientY];
-  }
+toggleBtn.addEventListener("click", () => {
+  drawingEnabled = !drawingEnabled;
+  canvas.style.pointerEvents = drawingEnabled ? "auto" : "none";
+  canvas.style.zIndex = drawingEnabled ? "1" : "-1"; // Під час малювання поверх, але під UI
+  toggleBtn.textContent = drawingEnabled ? "❌ Disable Draw" : "🎨 Enable Draw";
+});
 
-  function draw(e) {
-    if (!isDrawing || !drawingEnabled) return;
-    ctx.beginPath();
-    ctx.moveTo(lastX, lastY);
-    ctx.lineTo(e.clientX, e.clientY);
-    ctx.stroke();
-    [lastX, lastY] = [e.clientX, e.clientY];
-  }
+function startDrawing(x, y) {
+  if (!drawingEnabled) return;
+  isDrawing = true;
+  [lastX, lastY] = [x, y];
+}
 
-  function stopDrawing() {
-    isDrawing = false;
-  }
+function draw(x, y) {
+  if (!isDrawing || !drawingEnabled) return;
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  [lastX, lastY] = [x, y];
+}
 
-  canvas.addEventListener("mousedown", startDrawing);
-  canvas.addEventListener("mousemove", draw);
-  canvas.addEventListener("mouseup", stopDrawing);
-  canvas.addEventListener("mouseout", stopDrawing);
+function stopDrawing() {
+  isDrawing = false;
+}
 
-  // Touch support
-  canvas.addEventListener("touchstart", (e) => {
-    if (!drawingEnabled) return;
-    const touch = e.touches[0];
-    startDrawing(touch);
-  });
+// Миша
+canvas.addEventListener("mousedown", (e) => startDrawing(e.clientX, e.clientY));
+canvas.addEventListener("mousemove", (e) => draw(e.clientX, e.clientY));
+canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseout", stopDrawing);
 
-  canvas.addEventListener("touchmove", (e) => {
-    if (!drawingEnabled) return;
-    const touch = e.touches[0];
-    draw(touch);
-    e.preventDefault();
-  });
-
-  canvas.addEventListener("touchend", stopDrawing);
+// Тач
+canvas.addEventListener("touchstart", (e) => {
+  const touch = e.touches[0];
+  startDrawing(touch.clientX, touch.clientY);
+});
+canvas.addEventListener("touchmove", (e) => {
+  const touch = e.touches[0];
+  draw(touch.clientX, touch.clientY);
+  e.preventDefault();
+});
+canvas.addEventListener("touchend", stopDrawing);
 </script>
-
-
 
 </body>
 </html>
